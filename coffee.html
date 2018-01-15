@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Kentico Example</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <section id=anymod-nnknk></section>
+  <div class="container mt-5 pt-5">
+    <p>The following content is brought to you by the Kentico Cloud API.</p>
+    <img id="banner" style="width:100%">
+    <h1 id="headline"></h1>
+    <p id="bodytext"></p>
+  </div>
+  <script project="83542P" defaults="false" src="https://cdn.anymod.com/v1"></script>
+  <script>
+    // Use jQuery to request the content item using Kentico Cloud Delivery API.
+    $.ajax({
+      type: "GET",
+      url: "https://deliver.kenticocloud.com/ac437d72-dc59-4526-806e-1305502385d7/items/home",
+      dataType: "json",
+      success: processData,
+      error: function() {
+        alert("failed");
+      }
+    });
+
+    // Process the retrieved data and display it on the page.
+    function processData(data) {
+      $("#headline").append(data.modular_content.our_story.elements.title.value);
+      $("#bodytext").append(data.modular_content.our_story.elements.description.value);
+      $("#banner").attr("src",data.modular_content.our_story.elements.image.value[0].url);
+    }
+  </script>
+</body>
+</html>
